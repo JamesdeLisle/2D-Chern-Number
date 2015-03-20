@@ -48,7 +48,7 @@ phasespace::phasespace(double mumin_, double mumax_, int muint_, double deltamin
             delta_ = deltaVec[j];
             //std::cout << mu_ << delta_;
             space[i][j] = chern(mu_, delta_, pint_);
-            myfile << getmu(i) << " " << getdelta(j) << " " << space[i][j].getChern() << " " <<  space[i][j].getGapC() << std::endl;
+            myfile <<  getdelta(j) << " " << getmu(i) << " " << space[i][j].getChern() << " " <<  space[i][j].getGapC() << std::endl;
 
             //std::cout << space[i][j].getGapC() << std::endl;
         }
