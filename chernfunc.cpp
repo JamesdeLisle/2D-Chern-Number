@@ -27,29 +27,23 @@ chern::chern( double mu_, double delta_, int pint_ )
             momSpace[i][j] = sys(pVec[i],pVec[j], mu_, delta_);
         }
     }
+
     ChernN = 0.0;
     Eigen::Matrix2cd C1, C2, C3, C4;
-    double cherntemp;
     for(i = 0; i < pint_-1; i++)
     {
         for( j = 0; j < pint_-1; j++ )
         {
-            C1(0,0) = momSpace[i][j].vecoutput1().adjoint().dot(momSpace[i+1][j].vecoutput1());
-            C1(0,1) = momSpace[i][j].vecoutput1().adjoint().dot(momSpace[i+1][j].vecoutput2());
-            C1(1,0) = momSpace[i][j].vecoutput2().adjoint().dot(momSpace[i+1][j].vecoutput1());
-            C1(1,1) = momSpace[i][j].vecoutput2().adjoint().dot(momSpace[i+1][j].vecoutput2());
-            C2(0,0) = momSpace[i+1][j].vecoutput1().adjoint().dot(momSpace[i+1][j+1].vecoutput1());
-            C2(0,1) = momSpace[i+1][j].vecoutput1().adjoint().dot(momSpace[i+1][j+1].vecoutput2());
-            C2(1,0) = momSpace[i+1][j].vecoutput2().adjoint().dot(momSpace[i+1][j+1].vecoutput1());
-            C2(1,1) = momSpace[i+1][j].vecoutput2().adjoint().dot(momSpace[i+1][j+1].vecoutput2());
-            C3(0,0) = momSpace[i+1][j+1].vecoutput1().adjoint().dot(momSpace[i][j+1].vecoutput1());
-            C3(0,1) = momSpace[i+1][j+1].vecoutput1().adjoint().dot(momSpace[i][j+1].vecoutput2());
-            C3(1,0) = momSpace[i+1][j+1].vecoutput2().adjoint().dot(momSpace[i][j+1].vecoutput1());
-            C4(1,1) = momSpace[i+1][j+1].vecoutput2().adjoint().dot(momSpace[i][j+1].vecoutput2());
-            C4(0,0) = momSpace[i][j+1].vecoutput1().adjoint().dot(momSpace[i][j].vecoutput1());
-            C4(0,1) = momSpace[i][j+1].vecoutput1().adjoint().dot(momSpace[i][j].vecoutput2());
-            C4(1,0) = momSpace[i][j+1].vecoutput2().adjoint().dot(momSpace[i][j].vecoutput1());
-            C4(1,1) = momSpace[i][j+1].vecoutput2().adjoint().dot(momSpace[i][j].vecoutput2());
+            for(k = 0; k < 2; k++)
+            {
+                for(l = 0; l < 2; l++)
+                {
+                    C1(k,l) = momSpace[i][j].eigenvectorsoutput().col(k).dot(momSpace[i+1][j].eigenvectorsoutput().col(l));
+                    C2(k,l) = momSpace[i+1][j].eigenvectorsoutput().col(k).dot(momSpace[i+1][j+1].eigenvectorsoutput().col(l));
+                    C3(k,l) = momSpace[i+1][j+1].eigenvectorsoutput().col(k).dot(momSpace[i][j+1].eigenvectorsoutput().col(l));
+                    C4(k,l) = momSpace[i][j+1].eigenvectorsoutput().col(k).dot(momSpace[i][j].eigenvectorsoutput().col(l));
+                }
+            }
 
             ChernN += std::arg(C1.determinant()*C2.determinant()*C3.determinant()*C4.determinant())/(2*PI);
         }

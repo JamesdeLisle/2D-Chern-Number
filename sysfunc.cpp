@@ -107,28 +107,14 @@ sys::sys(double pX_, double pY_, double mu_, double delta_)
         }
     }
 
-    //std::cout << refer << std::endl;
 
     for (int k = 0; k < 4; k++)
     {
-        if ((refer[k] = 0))
-        {
-            eigenvector1 = ces.eigenvectors().col(k);
-        }
-    }
-
-    for (int k = 0; k < 4; k++)
-    {
-        if ((refer[k] = 1))
-        {
-            eigenvector2 = ces.eigenvectors().col(k);
-        }
+        eigenvectors.col(k) << ces.eigenvectors().col(refer[k]);
     }
 
     eigenvalue = sorteigenvaltemp;
-    //std::cout << eigenvalue << std::endl;
     gapdiff = std::real(eigenvalue[2] - eigenvalue[1]);
-
     //std::cout << gapdiff << " ";
 }
 

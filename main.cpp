@@ -5,11 +5,11 @@ int main()
 {
     double mumin_   = 0.0;     //minimum chemical potential
     double mumax_   = 6.0;      //maximum chemical potential
-    int muint_      = 21;       //descritisation of chemical potential
+    int muint_      = 61;       //descritisation of chemical potential
     double deltamin_= 0.0;     //minimum pairing coupling
     double deltamax_= 4.0;      //maximum pairing coupling
-    int deltaint_   = 21;       //descretisation of pairing coupling
-    int pint_       = 41;      //descretisation of momentum space
+    int deltaint_   = 61;       //descretisation of pairing coupling
+    int pint_       = 20;      //descretisation of momentum space
 
 
     //wind test(1.0,1.0,150);

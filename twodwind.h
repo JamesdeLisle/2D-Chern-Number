@@ -21,16 +21,14 @@ class sys //defines the hamiltonian and computes the eigenvectors, eigenvalues a
     private:
     Eigen::Matrix4cd hamiltonian;
     Eigen::Vector4d eigenvalue;
-    Eigen::Vector4cd eigenvector1;
-    Eigen::Vector4cd eigenvector2;
+    Eigen::Matrix4cd eigenvectors;
     double gapdiff;
 
     public:
     sys(double pX_, double pY_, double mu, double delta);
     double getgap() { return gapdiff; }
     Eigen::Vector4d eigenvaloutput() {return eigenvalue;}
-    Eigen::Vector4cd vecoutput1() { return eigenvector1;}
-    Eigen::Vector4cd vecoutput2() { return eigenvector2;}
+    Eigen::Matrix4cd eigenvectorsoutput() { return eigenvectors;}
 };
 
 
